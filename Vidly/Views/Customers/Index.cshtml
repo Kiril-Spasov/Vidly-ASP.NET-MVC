@@ -19,7 +19,7 @@ else
 		<thead>
 			<tr>
 				<th>Customer</th>
-				<th>Discount Rate</th>
+				<th>Membership Type</th>
 			</tr>
 		</thead>
 
@@ -31,7 +31,7 @@ else
 						<a asp-action="Details" asp-route-id=@customer.Id>@customer.Name</a>
 					</td>
 					<td>
-						@customer.MembershipType.DiscountRate%
+						@customer.MembershipType.Name
 					</td>
 				</tr>
 			}
