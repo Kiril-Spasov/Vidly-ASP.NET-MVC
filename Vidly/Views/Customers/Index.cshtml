@@ -3,7 +3,6 @@
 
 @{
 	ViewBag.Title = "Customers";
-	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -28,7 +27,7 @@ else
 			{
 				<tr>
 					<td>
-						<a asp-action="Details" asp-route-id=@customer.Id>@customer.Name</a>
+						<a asp-action="Edit" asp-route-id=@customer.Id>@customer.Name</a>
 					</td>
 					<td>
 						@customer.MembershipType.Name
