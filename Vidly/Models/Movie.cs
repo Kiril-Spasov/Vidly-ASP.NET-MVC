@@ -12,10 +12,12 @@ namespace Vidly.Models
 		[DisplayFormat(DataFormatString = "{0:d MMM yyyy}")]
 		[DataType(DataType.Date)]
 		public DateTime ReleaseDate { get; set; }
+
 		[Required]
 		public DateTime DateAdded { get; set; }
 
 		[Required]
+        [Range(1, 20)]
 		[Display(Name="Number In Stock")]
 		public int NumberInStock { get; set; }
 		public Genre Genre { get; set; }
