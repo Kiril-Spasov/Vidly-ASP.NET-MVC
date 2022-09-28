@@ -11,7 +11,7 @@ namespace Vidly.Dtos
 		public string Name { get; set; }
 
 		public bool IsSubscribedToNewsletter { get; set; }
-
+		public MembershipTypeDto MembershipType { get; set; }
 		public byte MembershipTypeId { get; set; }
 
 		[DisplayFormat(DataFormatString = "{0:d MMM yyyy}")]

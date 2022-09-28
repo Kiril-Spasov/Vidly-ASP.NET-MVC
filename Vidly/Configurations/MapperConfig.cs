@@ -15,6 +15,14 @@ namespace Vidly.Configurations
             CreateMap<Movie, MovieDto>()
                 .ReverseMap()
                 .ForMember(m => m.Id, opt => opt.Ignore());
+
+            CreateMap<MembershipType, MembershipTypeDto>()
+                .ReverseMap()
+                .ForMember(m => m.Id, opt => opt.Ignore());
+
+            CreateMap<Genre, GenreDto>()
+                .ReverseMap()
+                .ForMember(m => m.Id, opt => opt.Ignore());
         }
     }
 }

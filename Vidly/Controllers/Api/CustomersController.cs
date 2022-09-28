@@ -27,7 +27,12 @@ namespace Vidly.Controllers.Api
         [HttpGet]
         public ActionResult<IEnumerable<CustomerDto>> GetCustomers()
         {
-            return Ok(_context.Customers.ToList().Select(_mapper.Map<Customer, CustomerDto>));
+            var customerDtos = _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList()
+                .Select(_mapper.Map<Customer, CustomerDto>);
+
+            return Ok(customerDtos);
         }
 
         // GET /api/customer/1
@@ -62,7 +67,7 @@ namespace Vidly.Controllers.Api
         }
 
         // PUT /api/customers/1
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult UpdateCustomer(int id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
@@ -86,18 +91,18 @@ namespace Vidly.Controllers.Api
         }
 
         // DELETE /api/customers/1
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteCustomer(int id)
         {
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if (customerInDb == null)
-                return NotFound();
+             if (customerInDb == null)
+                 return NotFound();
 
             _context.Customers.Remove(customerInDb);
             _context.SaveChanges();
 
-            return Ok();
+             return Ok();
         }
     }
 }

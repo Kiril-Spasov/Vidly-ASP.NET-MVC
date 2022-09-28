@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Vidly.Data;
 using Vidly.Dtos;
 using Vidly.Models;
@@ -26,7 +27,12 @@ namespace Vidly.Controllers.Api
             if (_context.Movies == null)
                 return NotFound();
 
-            return Ok(_context.Movies.ToList().Select(_mapper.Map<Movie, MovieDto>));
+            var movies = _context.Movies
+                .Include(m => m.Genre)
+                .ToList()
+                .Select(_mapper.Map<Movie, MovieDto>);
+
+            return Ok(movies);
         }
 
         // GET /api/movies/1
@@ -59,7 +65,7 @@ namespace Vidly.Controllers.Api
         }
 
         // PUT /api/movies/1
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<MovieDto> UpdateMovie(int id, MovieDto movieDto)
         {
             if (!ModelState.IsValid)
@@ -78,7 +84,7 @@ namespace Vidly.Controllers.Api
         }
 
         // DELETE /api/movies/1
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);

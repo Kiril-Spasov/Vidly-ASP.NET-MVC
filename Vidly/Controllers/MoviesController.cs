@@ -21,8 +21,9 @@ namespace Vidly.Controllers
 		}
 		public IActionResult Index()
 		{
-			var movies = _context.Movies.Include(q => q.Genre).ToList();
-			return View(movies);
+			// We use Api
+			// var movies = _context.Movies.Include(q => q.Genre).ToList();
+			return View();
 		}
 
 		public IActionResult Details(int id)
