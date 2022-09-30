@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Vidly.Models;
 
@@ -13,6 +14,7 @@ namespace Vidly.Controllers
 			_logger = logger;
 		}
 
+		[AllowAnonymous]
 		public IActionResult Index()
 		{
 			return View();

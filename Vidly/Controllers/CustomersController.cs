@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vidly.Data;
 using Vidly.Models;
@@ -62,6 +63,7 @@ namespace Vidly.Controllers
 			return RedirectToAction("Index", "Customers");
 		}
 
+		
 		public IActionResult Index()
 		{
 			// We use Api
