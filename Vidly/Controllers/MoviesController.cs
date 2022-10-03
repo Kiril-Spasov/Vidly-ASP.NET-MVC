@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vidly.Data;
 using Vidly.Models;
@@ -23,7 +24,15 @@ namespace Vidly.Controllers
 		{
 			// We use Api
 			// var movies = _context.Movies.Include(q => q.Genre).ToList();
-			return View();
+
+			if (User.IsInRole(RoleName.CanManageMovies))
+			{
+				return View("List");
+			}
+			else
+			{
+				return View("ReadOnlyList");
+			}			
 		}
 
 		public IActionResult Details(int id)
@@ -35,6 +44,7 @@ namespace Vidly.Controllers
 			return View(movie);
 		}
 
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		public IActionResult New()
 		{
 			var viewModel = new MovieFormViewModel
@@ -47,6 +57,7 @@ namespace Vidly.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		public IActionResult Save(Movie movie)
 		{
 			if (!ModelState.IsValid)
@@ -78,6 +89,7 @@ namespace Vidly.Controllers
 			return RedirectToAction("Index", "Movies");
 		}
 
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		public IActionResult Edit(int id)
 		{
 			var movie = _context.Movies.SingleOrDefault(m => m.Id == id);

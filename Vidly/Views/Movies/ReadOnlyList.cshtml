@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Vidly.Models.Movie>
+
+@{
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+<table id="movies" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{/*
+         
+         // We use the Api to render the table, no need to render it on the server
+
+        @foreach (var movie in Model)
+        {
+                <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@movie.Id">@movie.Name</a>
+                    </td>
+                    <td>@movie.Genre.Name</td>
+                    <td>
+                        <button class="btn btn-link js-delete" data-movie-id="@movie.Id">Delete</button>
+                    </td>
+                </tr>
+        } */
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+$(document).ready(function() {
+
+    var table = $("#movies").DataTable({
+        ajax: {
+            url: "/api/movies",
+            dataSrc: ""
+        },
+        columns: [
+            {
+                data: "name",
+            },
+            {
+            data: "genre.name"
+            }
+        ]
+    });
+ });
+    </script>
+}
