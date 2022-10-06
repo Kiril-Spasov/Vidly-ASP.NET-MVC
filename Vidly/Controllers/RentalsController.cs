@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Vidly.Data;
 using Vidly.Dtos;
 using Vidly.Models;
 
-namespace Vidly.Controllers.Api
+namespace Vidly.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NewRentalsController : ControllerBase
+    public class RentalsController : Controller
     {
         private ApplicationDbContext _context;
-        public NewRentalsController(ApplicationDbContext context)
+        public RentalsController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+
+        public ActionResult New()
+        {
+            return View();
         }
 
         [HttpPost]
